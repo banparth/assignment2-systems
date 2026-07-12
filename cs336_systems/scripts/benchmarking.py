@@ -4,7 +4,7 @@ from enum import Enum
 import argparse
 import statistics
 import timeit
-
+import torch.cuda.nvtx as nvtx
 import torch
 
 from cs336_basics.model import BasicsTransformerLM
@@ -102,7 +102,8 @@ def main():
 
     def run_forward():
         torch.cuda.synchronize()
-        model.forward(input_ids)
+        with nvtx.range("model forward pass"):
+            model.forward(input_ids)
         torch.cuda.synchronize()
 
     def run_backward():
