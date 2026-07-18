@@ -14,7 +14,7 @@ class ModelSize(str, Enum):
     B10 = "10b"
 
 
-_df = pd.DataFrame(
+df = pd.DataFrame(
     [
         [ModelSize.SMALL, 768, 3072, 12, 12],
         [ModelSize.MEDIUM, 1024, 4096, 24, 16],
@@ -23,9 +23,7 @@ _df = pd.DataFrame(
         [ModelSize.B10, 4608, 12288, 50, 36],
     ],
     columns=["size", "d_model", "d_ff", "num_layers", "num_heads"],
-)
-
-df = _df.set_index("size")
+).set_index("size")
 
 
 def get_arch_config(model_size: ModelSize) -> dict[str, int]:
