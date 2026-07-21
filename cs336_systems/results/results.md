@@ -1,0 +1,32 @@
+|    | size             | mode                  | cast          | mean                 | var                    |
+|---:|:-----------------|:----------------------|:--------------|:---------------------|:-----------------------|
+|  0 | ModelSize.SMALL  | BenchmarkMode.FORWARD | AutoCast.NONE | 0.019969746499987194 | 3.4244104514857705e-05 |
+|  1 | ModelSize.SMALL  | BenchmarkMode.FORWARD | AutoCast.BF16 | 0.014919952699983696 | 6.538250762352142e-05  |
+|  2 | ModelSize.SMALL  | BenchmarkMode.FORWARD | AutoCast.FP16 | 0.015145874200015896 | 0.0002294293871948874  |
+|  9 | ModelSize.MEDIUM | BenchmarkMode.FORWARD | AutoCast.NONE | 0.05496292959994662  | 0.00014203007733677681 |
+| 10 | ModelSize.MEDIUM | BenchmarkMode.FORWARD | AutoCast.BF16 | 0.029508127200028867 | 0.0006002348312160761  |
+| 11 | ModelSize.MEDIUM | BenchmarkMode.FORWARD | AutoCast.FP16 | 0.029647766700009015 | 0.0005267826779570316  |
+| 18 | ModelSize.LARGE  | BenchmarkMode.FORWARD | AutoCast.NONE | 0.1229383024000299   | 0.0003703545102960824  |
+| 19 | ModelSize.LARGE  | BenchmarkMode.FORWARD | AutoCast.BF16 | 0.044876693600008365 | 0.0013280220886205895  |
+| 20 | ModelSize.LARGE  | BenchmarkMode.FORWARD | AutoCast.FP16 | 0.045075152599974896 | 0.000804159986022948   |
+| 27 | ModelSize.XL     | BenchmarkMode.FORWARD | AutoCast.NONE | 0.336083992399972    | 0.00035220388013414904 |
+| 28 | ModelSize.XL     | BenchmarkMode.FORWARD | AutoCast.BF16 | 0.07285946309996234  | 0.00017985300514400298 |
+| 29 | ModelSize.XL     | BenchmarkMode.FORWARD | AutoCast.FP16 | 0.07319177909996596  | 0.0001479014116489644  |
+| 36 | ModelSize.B10    | BenchmarkMode.FORWARD | AutoCast.NONE | oom                  | oom                    |
+| 37 | ModelSize.B10    | BenchmarkMode.FORWARD | AutoCast.BF16 | oom                  | oom                    |
+| 38 | ModelSize.B10    | BenchmarkMode.FORWARD | AutoCast.FP16 | oom                  | oom                    |
+|  3 | ModelSize.SMALL  | BenchmarkMode.BACKWARD | AutoCast.NONE | 0.06238725250002517  | 0.0001791179971886531  |
+|  4 | ModelSize.SMALL  | BenchmarkMode.BACKWARD | AutoCast.BF16 | 0.03987866390000363  | 0.0003032394766996497  |
+|  5 | ModelSize.SMALL  | BenchmarkMode.BACKWARD | AutoCast.FP16 | 0.040850215300019956 | 0.0028173977258351634  |
+| 12 | ModelSize.MEDIUM | BenchmarkMode.BACKWARD | AutoCast.NONE | 0.17013161420004508  | 0.00021087384961740774 |
+| 13 | ModelSize.MEDIUM | BenchmarkMode.BACKWARD | AutoCast.BF16 | 0.07921442119998119  | 0.0006621460068724714  |
+| 14 | ModelSize.MEDIUM | BenchmarkMode.BACKWARD | AutoCast.FP16 | 0.07803259210002125  | 0.000803987825998257   |
+| 21 | ModelSize.LARGE  | BenchmarkMode.BACKWARD | AutoCast.NONE | 0.38943786860002094  | 0.0003339680738222041  |
+| 22 | ModelSize.LARGE  | BenchmarkMode.BACKWARD | AutoCast.BF16 | 0.13957784369999898  | 0.0011326566690304794  |
+| 23 | ModelSize.LARGE  | BenchmarkMode.BACKWARD | AutoCast.FP16 | 0.13936630059995422  | 0.0037816199322981527  |
+| 30 | ModelSize.XL     | BenchmarkMode.BACKWARD | AutoCast.NONE | 1.0766150788000004   | 0.0004177210318748332  |
+| 31 | ModelSize.XL     | BenchmarkMode.BACKWARD | AutoCast.BF16 | 0.24628019409999524  | 0.00035641479516749207 |
+| 32 | ModelSize.XL     | BenchmarkMode.BACKWARD | AutoCast.FP16 | 0.24533051609998893  | 0.0003204157674381151  |
+| 39 | ModelSize.B10    | BenchmarkMode.BACKWARD | AutoCast.NONE | oom                  | oom                    |
+| 40 | ModelSize.B10    | BenchmarkMode.BACKWARD | AutoCast.BF16 | oom                  | oom                    |
+| 41 | ModelSize.B10    | BenchmarkMode.BACKWARD | AutoCast.FP16 | oom                  | oom                    |

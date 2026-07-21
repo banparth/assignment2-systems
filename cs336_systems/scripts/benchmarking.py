@@ -25,6 +25,7 @@ from cs336_systems.conf.conf import (
     get_arch_config,
     df as confs
 )
+from cs336_systems.conf.common import RunResult, BenchmarkMode
 
 
 @dataclass
@@ -38,10 +39,6 @@ class ResolvedConfig:
 
     
 
-class BenchmarkMode(str, Enum):
-    FORWARD = "forward"
-    BACKWARD = "backward"
-    OPTIMIZER = "optimizer"
     
 class AutoCast(str, Enum):
     NONE = "none"
@@ -112,6 +109,11 @@ def build_parser() -> argparse.ArgumentParser:
         action=argparse.BooleanOptionalAction,
         default=False
     )
+    parser.add_argument(
+        "--compile",
+        action=argparse.BooleanOptionalAction,
+        default=None
+    )
     return parser
 
 
@@ -140,18 +142,6 @@ def resolve_config(args: argparse.Namespace, parser: argparse.ArgumentParser) ->
         d_ff=args.d_ff,
     )
 
-@dataclass
-class RunResult:
-    elapsed: list[float]
-    
-    @property
-    def mean(self) -> float:
-        return statistics.mean(self.elapsed)
-
-    @property
-    def stddev(self) -> float:
-        return statistics.stdev(self.elapsed)
-
     
 def runner2(config: RunConfig) -> RunResult:
     res = config.resolved_config()
@@ -173,7 +163,12 @@ def runner(model: torch.nn.Module,
            cast: AutoCast,
            device: torch.device,
            memory_dump: str | None = None,
-           is_warmup: bool = True) -> RunResult:
+           is_warmup: bool = True,
+           is_compile: bool = False) -> RunResult:
+    
+    if is_compile:
+        model = torch.compile(model)
+
     def run_forward():
         torch.cuda.synchronize()
         with nvtx.range("model forward pass"):
@@ -182,17 +177,22 @@ def runner(model: torch.nn.Module,
 
     def run_backward():
         torch.cuda.synchronize()
-        logits = model(input_ids)
-        loss = cross_entropy(logits, target)
-        loss.backward()
+        with nvtx.range("model forward pass"):
+            logits = model(input_ids)
+        with nvtx.range("model backward pass"):
+            loss = cross_entropy(logits, target)
+            loss.backward()
         torch.cuda.synchronize()
 
     def run_optimizer():
         torch.cuda.synchronize()
-        logits = model(input_ids)
-        loss = cross_entropy(logits, target)
-        loss.backward()
-        optimizer.step()
+        with nvtx.range("model forward pass"):
+            logits = model(input_ids)
+        with nvtx.range("model backward pass"):
+            loss = cross_entropy(logits, target)
+            loss.backward()
+        with nvtx.range("model optimizer"):
+            optimizer.step()
         torch.cuda.synchronize()
     
     run_fn = run_forward
@@ -238,6 +238,9 @@ def full_run(args: argparse.Namespace):
     autocasting = pd.DataFrame({"cast": list(AutoCast)})
     
     df = df.merge(autocasting, how="cross")
+    compile = pd.DataFrame({"compile": list([True, False])})
+    
+    df = df.merge(compile, "cross")
     
     if args.model_size:
         df = df.loc[df["size"].isin([args.model_size])]
@@ -247,6 +250,9 @@ def full_run(args: argparse.Namespace):
         
     if args.cast:
         df = df.loc[df["cast"].isin([args.cast])]
+    
+    if args.compile is not None:
+        df = df.loc[df["compile"].isin([args.compile])]
     
     df["mean"] = pd.Series(dtype=object)
     df["var"] = pd.Series(dtype=object)
@@ -271,8 +277,8 @@ def full_run(args: argparse.Namespace):
             optimizer = AdamW(model.parameters(), lr=1e-3)
             memory_file = None
             if args.memory_dump:
-                memory_file = f"{row["size"]}-{row["mode"]}-{row["cast"]}-{row["context_length"]}"
-            result = runner(model, input_ids, target, row["mode"], optimizer, row["cast"], device, memory_file, True)
+                memory_file = f"{row["size"]}-{row["mode"]}-{row["cast"]}-{df.at[idx, "context_length"]}"
+            result = runner(model, input_ids, target, row["mode"], optimizer, row["cast"], device, memory_file, args.is_warmup, row["compile"])
             df.at[idx, "mean"] = result.mean
             df.at[idx, "var"] = result.stddev
         except torch.cuda.OutOfMemoryError:

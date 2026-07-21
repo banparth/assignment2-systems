@@ -15,7 +15,10 @@ def log_softmax(x, dim=-1):
 
 def cross_entropy(inputs, targets):
     negative_log_softmax_logits = -log_softmax(inputs)
-    return torch.mean(torch.gather(negative_log_softmax_logits, -1, targets.unsqueeze(-1)))
+    # print(f"negative_log_softmax_shape: {negative_log_softmax_logits.dtype}")
+    gather = torch.gather(negative_log_softmax_logits, -1, targets.unsqueeze(-1))
+    # print(f"gather: {gather.dtype}")
+    return torch.mean(gather)
 
 
 def clip_gradient(parameters, max_norm):
