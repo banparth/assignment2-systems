@@ -17,6 +17,18 @@ wheels = [
 ]
 
 [[package]]
+name = "basedpyright"
+version = "1.39.9"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "nodejs-wheel-binaries" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7a/4b/c1f4e211e50389304d6af32b9280e026a7133e3ad59bbdf8f7a3250f8bee/basedpyright-1.39.9.tar.gz", hash = "sha256:32cbea5fc8273e89df3db20daea56cb7286e419ccdfdc479c64759d2dc071901", size = 24412216, upload-time = "2026-06-27T02:19:49.834Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/d4/e1fa108710d0498a18c77b1e13897f31eab47c69aa8cfe2d2a4df746541e/basedpyright-1.39.9-py3-none-any.whl", hash = "sha256:6b0837b9eba972c71895167ab9b127e6afdbc17abc92312e3f8d15ca82a5611c", size = 13374276, upload-time = "2026-06-27T02:19:54.431Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.2.25"
 source = { registry = "https://pypi.org/simple" }
@@ -175,15 +187,19 @@ name = "cs336-systems"
 version = "26.1.4"
 source = { editable = "." }
 dependencies = [
+    { name = "basedpyright" },
     { name = "cs336-basics" },
     { name = "humanfriendly" },
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pypdf" },
     { name = "pytest" },
     { name = "regex" },
     { name = "ruff" },
+    { name = "tabulate" },
     { name = "torch" },
+    { name = "torchviz" },
     { name = "tqdm" },
     { name = "ty" },
     { name = "wandb" },
@@ -191,15 +207,19 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "basedpyright", specifier = ">=1.39.9" },
     { name = "cs336-basics", editable = "cs336-basics" },
     { name = "humanfriendly" },
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas", specifier = ">=2" },
+    { name = "pypdf", specifier = ">=6.14.2" },
     { name = "pytest", specifier = ">=8" },
     { name = "regex", specifier = ">=2026.3.32" },
     { name = "ruff", specifier = ">=0.15.10" },
+    { name = "tabulate", specifier = ">=0.10.0" },
     { name = "torch", specifier = "~=2.11.0" },
+    { name = "torchviz", specifier = ">=0.0.3" },
     { name = "tqdm", specifier = ">=4.67.1" },
     { name = "ty", specifier = ">=0.0.29" },
     { name = "wandb", specifier = ">=0.19.7" },
@@ -376,6 +396,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/df/b5/59d16470a1f0dfe8c793f9ef56fd3826093fc52b3bd96d6b9d6c26c7e27b/gitpython-3.1.46.tar.gz", hash = "sha256:400124c7d0ef4ea03f7310ac2fbf7151e09ff97f2a3288d64a440c584a29c37f", size = 215371, upload-time = "2026-01-01T15:37:32.073Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/09/e21df6aef1e1ffc0c816f0522ddc3f6dcded766c3261813131c78a704470/gitpython-3.1.46-py3-none-any.whl", hash = "sha256:79812ed143d9d25b6d176a10bb511de0f9c67b1fa641d82097b0ab90398a2058", size = 208620, upload-time = "2026-01-01T15:37:30.574Z" },
+]
+
+[[package]]
+name = "graphviz"
+version = "0.21"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f8/b3/3ac91e9be6b761a4b30d66ff165e54439dcd48b83f4e20d644867215f6ca/graphviz-0.21.tar.gz", hash = "sha256:20743e7183be82aaaa8ad6c93f8893c923bd6658a04c32ee115edb3c8a835f78", size = 200434, upload-time = "2025-06-15T09:35:05.824Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/91/4c/e0ce1ef95d4000ebc1c11801f9b944fa5910ecc15b5e351865763d8657f8/graphviz-0.21-py3-none-any.whl", hash = "sha256:54f33de9f4f911d7e84e4191749cac8cc5653f815b06738c54db9a15ab8b1e42", size = 47300, upload-time = "2025-06-15T09:35:04.433Z" },
 ]
 
 [[package]]
@@ -585,6 +614,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/6a/51/63fe664f3908c97be9d2e4f1158eb633317598cfa6e1fc14af5383f17512/networkx-3.6.1.tar.gz", hash = "sha256:26b7c357accc0c8cde558ad486283728b65b6a95d85ee1cd66bafab4c8168509", size = 2517025, upload-time = "2025-12-08T17:02:39.908Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl", hash = "sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762", size = 2068504, upload-time = "2025-12-08T17:02:38.159Z" },
+]
+
+[[package]]
+name = "nodejs-wheel-binaries"
+version = "24.16.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a3/22/2a5beb4e21417c73233d9f65cf6f3e96e891b80d2f550a8f630ebc6b88c6/nodejs_wheel_binaries-24.16.0.tar.gz", hash = "sha256:c973cb69dc5fd16e6f6dc6e579e2c3d5534e2a1f57619dddf5ba070efa7dde37", size = 8056, upload-time = "2026-05-30T16:52:09.807Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/83/d1/68b43b53cd0fa83ae6fd406705023ca988d9e0ca41c724d82e66fbeb2ef6/nodejs_wheel_binaries-24.16.0-py2.py3-none-macosx_13_0_arm64.whl", hash = "sha256:d9f8f677dcf30e37ac244f07869726abe043f01eb0f45722b1df31cc2af7093c", size = 55666374, upload-time = "2026-05-30T16:51:39.588Z" },
+    { url = "https://files.pythonhosted.org/packages/e9/b2/40a989159599080da485de966c4c2d207e852ac7aa7864702626d96c8bf5/nodejs_wheel_binaries-24.16.0-py2.py3-none-macosx_13_0_x86_64.whl", hash = "sha256:3d0370fe7120ce9697a4f60d40480d2bd8808d9f30131458d5afc0040d4e5a51", size = 55838487, upload-time = "2026-05-30T16:51:43.383Z" },
+    { url = "https://files.pythonhosted.org/packages/d7/a7/cd42174fb5ff6faff7fa8d326a18914d8f232098ab5de055b57c16fa13ca/nodejs_wheel_binaries-24.16.0-py2.py3-none-manylinux_2_28_aarch64.whl", hash = "sha256:85dc92bbb79c851569c5925dcc2a4c915a034efab375f99e4e7e6bbe9cca8342", size = 60179540, upload-time = "2026-05-30T16:51:47.036Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/95/c8a1f9ae140aa28df8744d984d01d4b3af7cdd6555af12127f40ceb45a7d/nodejs_wheel_binaries-24.16.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:2f3036292811514ba847b3708492644764f88a833ac425c5f55007014308ddfd", size = 60716262, upload-time = "2026-05-30T16:51:50.711Z" },
+    { url = "https://files.pythonhosted.org/packages/64/c9/7c35b3737f59e36d0249c265397b7bff570519b95301d6e16ea361e904ad/nodejs_wheel_binaries-24.16.0-py2.py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:db8a8a76ebd2b28ecbfc9ad464baa3707241b9e050a30e2efdf6f60c0f886502", size = 62230592, upload-time = "2026-05-30T16:51:55Z" },
+    { url = "https://files.pythonhosted.org/packages/04/96/d931255cf9d11a84d6b54d882dba7434646467d568ccf070ea3418638df3/nodejs_wheel_binaries-24.16.0-py2.py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:f1a3d8f7b4491cbbd023ba3fc4e901fcca2d9fb80d57f24ba3890de8b1dbac03", size = 62841759, upload-time = "2026-05-30T16:51:59.407Z" },
+    { url = "https://files.pythonhosted.org/packages/a2/7b/8b7a3f41bc255411be30b6d7d288aab8ffd9ea2055db8555ced3548007b9/nodejs_wheel_binaries-24.16.0-py2.py3-none-win_amd64.whl", hash = "sha256:bb136be9944f0662dcf1120f45193a6b75b13fac378971a95cc42c9f879a81aa", size = 42027734, upload-time = "2026-05-30T16:52:03.348Z" },
+    { url = "https://files.pythonhosted.org/packages/17/66/1ed71f1f529b8ca727d42c7ceb9db0bef145ce4a13dfc86fb50aa44f3be6/nodejs_wheel_binaries-24.16.0-py2.py3-none-win_arm64.whl", hash = "sha256:8308940b5edd0a50dc5267ea36ba21c9f668e83fe0d9f293937174d3a7e31c36", size = 39714528, upload-time = "2026-05-30T16:52:06.421Z" },
 ]
 
 [[package]]
@@ -999,6 +1044,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pypdf"
+version = "6.14.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/03/72/7dfd5ff1c9c37de97a731701f51af091325f123d9d4270361c9c69e4431f/pypdf-6.14.2.tar.gz", hash = "sha256:7873f502fe4385e79539b21d872392dc0c4e3714327c15881cbc7fbfd1f95b25", size = 6491182, upload-time = "2026-06-23T14:18:30.859Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/49/e6/136aa8993a2ae7214e0b0ef2edaa0d2e08d1d4e4982635b08a835ff31ec8/pypdf-6.14.2-py3-none-any.whl", hash = "sha256:3f07891af76dc002657e04993ab9b4de81de29f9013b9761d0b7968bff12e946", size = 349514, upload-time = "2026-06-23T14:18:28.867Z" },
+]
+
+[[package]]
 name = "pyreadline3"
 version = "3.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1224,6 +1278,15 @@ wheels = [
 ]
 
 [[package]]
+name = "tabulate"
+version = "0.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/46/58/8c37dea7bbf769b20d58e7ace7e5edfe65b849442b00ffcdd56be88697c6/tabulate-0.10.0.tar.gz", hash = "sha256:e2cfde8f79420f6deeffdeda9aaec3b6bc5abce947655d17ac662b126e48a60d", size = 91754, upload-time = "2026-03-04T18:55:34.402Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/99/55/db07de81b5c630da5cbf5c7df646580ca26dfaefa593667fc6f2fe016d2e/tabulate-0.10.0-py3-none-any.whl", hash = "sha256:f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3", size = 39814, upload-time = "2026-03-04T18:55:31.284Z" },
+]
+
+[[package]]
 name = "tiktoken"
 version = "0.12.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1289,6 +1352,19 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/6d/6c/56bfb37073e7136e6dd86bfc6af7339946dd684e0ecf2155ac0eee687ae1/torch-2.11.0-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:2658f34ce7e2dabf4ec73b45e2ca68aedad7a5be87ea756ad656eaf32bf1e1ea", size = 419732324, upload-time = "2026-03-23T18:09:36.604Z" },
     { url = "https://files.pythonhosted.org/packages/07/f4/1b666b6d61d3394cca306ea543ed03a64aad0a201b6cd159f1d41010aeb1/torch-2.11.0-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:98bb213c3084cfe176302949bdc360074b18a9da7ab59ef2edc9d9f742504778", size = 530596026, upload-time = "2026-03-23T18:09:20.842Z" },
     { url = "https://files.pythonhosted.org/packages/48/6b/30d1459fa7e4b67e9e3fe1685ca1d8bb4ce7c62ef436c3a615963c6c866c/torch-2.11.0-cp313-cp313t-win_amd64.whl", hash = "sha256:a97b94bbf62992949b4730c6cd2cc9aee7b335921ee8dc207d930f2ed09ae2db", size = 114793702, upload-time = "2026-03-23T18:09:47.304Z" },
+]
+
+[[package]]
+name = "torchviz"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "graphviz" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5c/80/a84e0e8877630262c3f4c8d2e7fd0647c6751afeca301cfc04a1b65ac820/torchviz-0.0.3.tar.gz", hash = "sha256:2e95f2fea7a31ec9549f2d6bbf446d75aeb6a9880fcf13e7dd843fdcdb4a3725", size = 5705, upload-time = "2024-12-02T02:46:54.671Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/06/bea648249802b65282414caf5e7bc94fcb6e5a3e311b537845417d19edb9/torchviz-0.0.3-py3-none-any.whl", hash = "sha256:5eab98d17cbe8a54727cfa6a527681cff613430fff8fc68f52302ca5fa26cdf1", size = 5708, upload-time = "2024-12-02T02:46:52.838Z" },
 ]
 
 [[package]]
