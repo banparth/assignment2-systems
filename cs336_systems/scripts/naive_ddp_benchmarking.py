@@ -46,13 +46,14 @@ def distributed_reduction(rank: int,
     else:
         torch.cuda.set_device(rank)
     setup(rank, world_size)
-    
+    print(f"setting up {rank=}")
     device = torch.device("cuda")
-    model = BasicsTransformerLM(**asdict(config)).to(device)
+    model = BasicsTransformerLM(**asdict(config))
+    model = model.to(device)
+
     
     input_ids = torch.randint(0, config.vocab_size, (DEFAULT_BATCH_SIZE, config.context_length), device=device, dtype=torch.long)
     assert input_ids.min() >= 0 and input_ids.max() < config.vocab_size
-
     model = DDP(model)
     optimizer = AdamW(model.parameters(), lr=1e-3)
     
@@ -112,10 +113,11 @@ def main():
             **get_arch_config(row["size"]),
         )
 
+        print(df.loc[idx].to_markdown())
 
         queue = mp.get_context("spawn").Queue()
         num_gpu = 2
-        ctx = mp.spawn(fn=distributed_reduction, args=(num_gpu,size,queue), nprocs=num_gpu, join=False)
+        ctx = mp.spawn(fn=distributed_reduction, args=(num_gpu,config,queue), nprocs=num_gpu, join=False)
         assert ctx is not None
         result: RunResult = queue.get()
         
