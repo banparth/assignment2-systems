@@ -2,6 +2,8 @@ import os
 import torch
 import torch.distributed as dist
 import torch.multiprocessing as mp
+
+
 def setup(rank, world_size):
     os.environ["MASTER_ADDR"] = "localhost"
     os.environ["MASTER_PORT"] = "29500"
@@ -23,7 +25,5 @@ def distributed_demo(rank, world_size):
     print(f"rank {rank} data (after all-reduce): {data}")
     
 if __name__ == "__main__":
-    print(f"{os.getpid()}")
-
     world_size = 4
     mp.spawn(fn=distributed_demo, args=(world_size, ), nprocs=world_size, join=True)
