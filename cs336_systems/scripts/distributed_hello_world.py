@@ -25,5 +25,5 @@ def distributed_demo(rank, world_size):
     print(f"rank {rank} data (after all-reduce): {data}")
     
 if __name__ == "__main__":
-    world_size = 4
+    world_size = 2
     mp.spawn(fn=distributed_demo, args=(world_size, ), nprocs=world_size, join=True)
