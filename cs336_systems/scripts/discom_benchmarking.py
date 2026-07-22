@@ -105,12 +105,18 @@ def main():
         df.at[idx, "mean"] = result.mean
         df.at[idx, "var"] = result.stddev
         print(df.loc[idx].to_markdown())
-            
-        
-        
     
     print(df.to_markdown())
 
 
 if __name__ == "__main__":
     main()
+    
+    
+# Results from 2*GPU
+# |    |       size |   num_gpu |        mean |         var |
+# |---:|-----------:|----------:|------------:|------------:|
+# |  0 |    1048576 |         2 | 7.14495e-05 | 4.53353e-05 |
+# |  1 |   10485760 |         2 | 9.59937e-05 | 3.16923e-05 |
+# |  2 |  104857600 |         2 | 0.00042573  | 2.75406e-05 |
+# |  3 | 1073741824 |         2 | 0.00324733  | 2.7898e-05  |
