@@ -24,3 +24,9 @@ class BenchmarkMode(str, Enum):
     FORWARD = "forward"
     BACKWARD = "backward"
     OPTIMIZER = "optimizer"
+    
+class AutoCast(str, Enum):
+    NONE = "none"
+    BF16 = "bf16"
+    FP16 = "fp16"
+

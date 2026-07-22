@@ -1,5 +1,7 @@
 import pandas as pd
 from enum import Enum
+from dataclasses import dataclass
+from .common import BenchmarkMode, AutoCast
 
 DEFAULT_VOCAB_SIZE = 10_000
 DEFAULT_CONTEXT_LENGTH = 512
@@ -34,3 +36,34 @@ def get_arch_config(model_size: ModelSize) -> dict[str, int]:
         "num_layers": int(row["num_layers"]),
         "num_heads": int(row["num_heads"]),
     }
+
+@dataclass
+class ResolvedConfig:
+    vocab_size: int
+    context_length: int
+    d_model: int
+    num_layers: int
+    num_heads: int
+    d_ff: int
+
+@dataclass
+class RunConfig:
+    model: ModelSize
+    batch_size: int
+    vocab_size: int
+    context_length: int
+    mode: BenchmarkMode
+    cast: AutoCast
+    is_memory_dump: bool
+    is_warmup: bool
+    
+    def name(self) -> str:
+        return f"{self.model}-{self.batch_size}-{self.vocab_size}-{self.context_length}-{self.mode}-{self.cast}"
+    
+    def resolved_config(self) -> ResolvedConfig:
+        arch = get_arch_config(self.model)
+        return ResolvedConfig(
+            vocab_size=self.vocab_size,
+            context_length=self.context_length,
+            **arch,
+        )

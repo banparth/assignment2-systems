@@ -23,51 +23,11 @@ from cs336_systems.conf.conf import (
     DEFAULT_VOCAB_SIZE,
     ModelSize,
     get_arch_config,
-    df as confs
+    df as confs,
+    ResolvedConfig,
+    RunConfig,
 )
-from cs336_systems.conf.common import RunResult, BenchmarkMode
-
-
-@dataclass
-class ResolvedConfig:
-    vocab_size: int
-    context_length: int
-    d_model: int
-    num_layers: int
-    num_heads: int
-    d_ff: int
-
-    
-
-    
-class AutoCast(str, Enum):
-    NONE = "none"
-    BF16 = "bf16"
-    FP16 = "fp16"
-
-
-@dataclass
-class RunConfig:
-    model: ModelSize
-    batch_size: int
-    vocab_size: int
-    context_length: int
-    mode: BenchmarkMode
-    cast: AutoCast
-    is_memory_dump: bool
-    is_warmup: bool
-    
-    def name(self) -> str:
-        return f"{self.model}-{self.batch_size}-{self.vocab_size}-{self.context_length}-{self.mode}-{self.cast}"
-    
-    def resolved_config(self) -> ResolvedConfig:
-        arch = get_arch_config(self.model)
-        return ResolvedConfig(
-            vocab_size=self.vocab_size,
-            context_length=self.context_length,
-            **arch,
-        )
-
+from cs336_systems.conf.common import RunResult, BenchmarkMode, AutoCast
         
 
 RAW_CONFIG_FIELDS = ("vocab_size", "context_length", "d_model", "num_layers", "num_heads", "d_ff")
