@@ -91,9 +91,12 @@ def distributed_reduction(rank: int,
         
         if rank == 0:
             queue.put(club_run_result(results))
-    except torch.cuda.OutOfMemoryError:
+    except torch.cuda.OutOfMemoryError as e:
+        print(f"memory error {e=}")
         if rank == 0:
             queue.put(RunResult([]))
+    except Exception as e:
+        print(e)
     
     exit(rank)
     
@@ -153,4 +156,29 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
+
+
+# |    | size         | mode   |      mean |         var |
+# |---:|:-------------|:-------|----------:|------------:|
+# |  0 | ModelSize.XL | full   | 0.797926  | 0.000626335 |
+# |  1 | ModelSize.XL | comms  | 0.0527034 | 0.000172938 |
+
+# with this flag: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+# |    | size         | mode   |     mean |         var |
+# |---:|:-------------|:-------|---------:|------------:|
+# |  0 | ModelSize.XL | full   | 0.794339 | 0.00116234  |
+# |  1 | ModelSize.XL | comms  | 0.049486 | 0.000325892 |
+
+# # Large
+
+# batching
+# |    | size            | mode   |      mean |         var |
+# |---:|:----------------|:-------|----------:|------------:|
+# |  0 | ModelSize.LARGE | full   | 0.284433  | 0.000554937 |
+# |  1 | ModelSize.LARGE | comms  | 0.0181341 | 9.64028e-05 |
+
+# non batching
+# |    | size            | mode   |      mean |        var |
+# |---:|:----------------|:-------|----------:|-----------:|
+# |  0 | ModelSize.LARGE | full   | 0.287634  | 0.00130168 |
+# |  1 | ModelSize.LARGE | comms  | 0.0213776 | 0.00296817 |
